@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: email-test
+  mail:
+    host: localhost
+    port: 1025
+    test-connection: true

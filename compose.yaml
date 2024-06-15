@@ -1,0 +1,23 @@
+services:
+  email-app:
+    image: 'email-app:latest'
+    build:
+      context: .
+    container_name: email-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      mailpit:
+        condition: service_started
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpit
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "1025"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
